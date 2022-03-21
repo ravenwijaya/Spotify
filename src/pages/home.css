@@ -1,0 +1,93 @@
+body {
+  font-family: sans-serif;
+  background-color: black;
+}
+#title {
+  text-align: center;
+  color: white;
+}
+.card {
+  background-color: black;
+  width: 30%;
+  border-radius: 10px;
+  margin: 20px auto;
+  border: 2px solid mediumspringgreen;
+  display: flex;
+  flex-direction: column;
+}
+
+/* img {
+  border-radius: 10px 10px 0 0;
+} */
+.card_info {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.card_info p:nth-child(2),
+p:nth-child(3) {
+  margin: 5px 50px;
+  background: radial-gradient(
+      ellipse farthest-corner at right bottom,
+      #fedb37 0%,
+      #fdb931 8%,
+      #9f7928 30%,
+      #8a6e2f 40%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse farthest-corner at left top,
+      #ffffff 0%,
+      #ffffac 8%,
+      #d1b464 25%,
+      #5d4a1f 62.5%,
+      #5d4a1f 100%
+    );
+  color: white;
+  font-weight: bold;
+  border-radius: 0px 10px 0 10px;
+  padding: 10px 0;
+}
+.card_info span {
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input,
+label {
+  width: 40%;
+  margin: 0 auto;
+}
+
+label {
+  color: white;
+}
+
+form input {
+  margin-bottom: 10px;
+  height: 30px;
+  border-radius: 5px;
+  border-width: 0;
+}
+
+.button,
+button {
+  border-radius: 5px;
+  border-color: mediumspringgreen;
+  border-width: 2px;
+  margin: 10px auto;
+  background-color: rgb(3, 8, 6);
+  color: white;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+button {
+  width: 80%;
+}
