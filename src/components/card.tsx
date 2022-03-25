@@ -1,18 +1,33 @@
-import React from 'react';
+import { Box, Image, Text, Button, ScaleFade } from '@chakra-ui/react';
+import React, { useState } from 'react';
 
-const Card = ({ data: { artists, album } }) => {
+const Card = ({ data: { artists, album, name } }) => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="card">
-      <img src={album.images[0].url} alt="Avatar" />
-      <div className="card_info">
-        <h1>
-          <b>My playlist</b>
-        </h1>
-        <p>{artists[0].name}</p>
-        <p>{album.name}</p>
-        <button>Select</button>
-      </div>
-    </div>
+    <Box className="card">
+      <Image
+        className="img"
+        src={album.images[0].url}
+        alt="Avatar"
+        onPointerEnter={() => {
+          setIsOpen(true);
+        }}
+        onMouseOut={() => {
+          setIsOpen(false);
+        }}
+      />
+      <Box className="card_info">
+        <ScaleFade initialScale={0.9} in={isOpen}>
+          <Box className="hover_card">
+            <Text className="card_info_name">{name}</Text>
+            <Text className="card_info_artist">{artists[0].name}</Text>
+            <Text className="card_info_album">{album.name}</Text>
+          </Box>
+        </ScaleFade>
+      </Box>
+
+      <Button className="button select_button">Select</Button>
+    </Box>
   );
 };
 
