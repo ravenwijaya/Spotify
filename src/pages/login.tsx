@@ -1,47 +1,59 @@
 // @ts-nocheck
 import { Button, Text, Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { auth } from '../store/actions/resources';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const search = useLocation().search;
+  let navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const getHashParams = () => {
+    const hashParams = {};
+    const r = /([^&;=]+)=?([^&;]*)/g;
+    const q = window.location.hash.substring(1);
+    let e = r.exec(q);
+    while (e) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+      e = r.exec(q);
+    }
+    return hashParams;
+  };
   const handleRedirect = (event) => {
     event.preventDefault();
-    let url =
-      'https://accounts.spotify.com/authorize' +
-      '?response_type=code' +
-      `&client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}` +
-      '&scope=' +
-      encodeURIComponent('user-read-private%20user-read-email') +
-      '&redirect_uri=' +
-      encodeURIComponent('http://localhost:3000/');
-    window.location = url;
+    window.location = auth();
   };
 
   useEffect(() => {
-    const access_token = new URLSearchParams(search).get('code');
+    const params = getHashParams();
+    const access_token = params.access_token;
+    const state = params.state;
+    localStorage.setItem('spotifyAuthToken', access_token);
+    // const token = localStorage.getItem('spotifyAuthToken');
+
     if (access_token) {
-      localStorage.setItem('spotifyAuthToken', access_token);
-      setIsAuthenticated(true);
+      console.log(access_token);
+      // setIsAuthenticated(true);
+      navigate('/home');
     }
   }, []);
 
   return (
-    <Flex direction="column" my={50}>
-      <Text color="black" fontWeight="bold" fontSize={100} textAlign="center">
-        Welcome
-      </Text>
-      <Button
-        backgroundColor="#1DB954"
-        color="white"
-        mx="auto"
-        onClick={(event) => handleRedirect(event)}
-      >
-        LINK YOUR SPOTIFY ACCOUNT
-      </Button>
-    </Flex>
+    <>
+      <Flex direction="column" my={50}>
+        <Text color="white" fontWeight="bold" fontSize={100} textAlign="center">
+          Welcome
+        </Text>
+        <Button
+          backgroundColor="#1DB954"
+          color="white"
+          mx="auto"
+          onClick={(event) => handleRedirect(event)}
+        >
+          LINK YOUR SPOTIFY ACCOUNT
+        </Button>
+      </Flex>
+    </>
   );
 };
 export default Login;

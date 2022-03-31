@@ -1,13 +1,18 @@
 import { Box, Image, Text, Button, ScaleFade } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
-const Card = ({ data: { artists, album, name } }) => {
+const Card = ({
+  data: { artists, images, name, album_type, uri },
+  onSelect,
+  deselect,
+  onDeselect,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Box className="card">
       <Image
         className="img"
-        src={album.images[0].url}
+        src={images[0].url}
         alt="Avatar"
         onPointerEnter={() => {
           setIsOpen(true);
@@ -21,12 +26,18 @@ const Card = ({ data: { artists, album, name } }) => {
           <Box className="hover_card">
             <Text className="card_info_name">{name}</Text>
             <Text className="card_info_artist">{artists[0].name}</Text>
-            <Text className="card_info_album">{album.name}</Text>
+            <Text className="card_info_album">{album_type}</Text>
           </Box>
         </ScaleFade>
       </Box>
 
-      <Button className="button select_button">Select</Button>
+      <Button
+        className="button select_button"
+        backgroundColor="black"
+        onClick={!deselect ? () => onSelect(uri) : () => onDeselect(uri)}
+      >
+        {!deselect ? 'Select' : 'Deselect'}
+      </Button>
     </Box>
   );
 };

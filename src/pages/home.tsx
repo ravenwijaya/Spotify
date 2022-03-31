@@ -1,34 +1,60 @@
-import React from 'react';
-// import { getAlbums } from '../store/actions/resources';
+// @ts-nocheck
+
+import React, { useState, useEffect } from 'react';
+import { search } from '../store/actions/resources';
 import Card from '../components/card';
-import Form from '../components/Form';
-// import _ from 'lodash';
+// import Form from '../components/Form';
 import './home.css';
-import data from '../store/data';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Input } from '@chakra-ui/react';
 const HomePage = () => {
-  // const [data, setData] = useState<any>();
-  // const getData = async () => {
-  //   const data = await getAlbums();
-  //   setData(data);
-  //   return data;
-  // };
+  const [data, setData] = useState<any>();
+  const [selectedData, setSelectedData] = useState([]);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const getData = async (name) => {
+    const data = await search(name);
+    setData(data);
+  };
+  const select = (uri) => {
+    const album = data.find((item) => item.uri === uri);
+    setSelectedData([...selectedData, album]);
+  };
+  const deselect = (uri) => {
+    const album = selectedData.filter((item) => item.uri !== uri);
+    setSelectedData(album);
+  };
+  useEffect(() => {
+    getData('r');
+  }, []);
 
-  // if (_.isEmpty(data)) return null;
   return (
-    <>
-      <Flex className="slider">
-        {data.map((item) => (
-          <Card key={item.id} data={item} />
+    <Flex direction="column">
+      <Input
+        placeholder="search"
+        color="black"
+        mt={2}
+        backgroundColor="white"
+        onChange={(e) => getData(e.target.value)}
+      />
+      <Flex className="slider" backgroundColor="black">
+        {data?.map((item) => (
+          <Card key={item.uri} data={item} onSelect={select} />
         ))}
       </Flex>
 
-      <Form />
-    </>
+      <Flex className="slider" backgroundColor="black">
+        {selectedData?.map((item) => (
+          <Card
+            key={item.uri}
+            data={item}
+            onSelect={select}
+            onDeselect={deselect}
+            deselect
+          />
+        ))}
+      </Flex>
+
+      {/* <Form /> */}
+    </Flex>
   );
 };
 export default HomePage;

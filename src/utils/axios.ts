@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const baseURL = process.env.REACT_APP_API_URL;
 
@@ -9,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('token');
+    const token = localStorage.getItem('spotifyAuthToken');
     // @ts-ignore
     config.headers.Authorization = `Bearer ${token}`;
     return config;
