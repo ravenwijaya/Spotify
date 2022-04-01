@@ -2,8 +2,8 @@ import axios from '../../utils/axios';
 
 export const search = async (name) => {
   const data = await axios
-    .get(`/search?q=name:${name}&type=album`)
-    .then((res) => res.data.albums.items)
+    .get(`/search?q=name:${name}&type=track`)
+    .then((res) => res.data.tracks.items)
     .catch(console.error);
   return data ? data : [];
 };
@@ -24,10 +24,41 @@ export const auth = () => {
     '?response_type=token' +
     `&client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}` +
     '&scope=' +
-    encodeURIComponent('user-read-private%20user-read-email') +
+    encodeURIComponent(
+      'user-read-private%20user-read-email%20playlist-modify'
+    ) +
     '&redirect_uri=' +
     encodeURIComponent('http://localhost:3000/') +
     '&state=' +
     encodeURIComponent(state);
   return url;
+};
+
+export const getCurrentUser = async () => {
+  const data = await axios
+    .get(`/me`)
+    .then((res) => res.data)
+    .catch(console.error);
+  return data ? data : [];
+};
+export const addPlaylist = async (userId, data) => {
+  await axios
+    .post(`/users/${userId}/playlists`, data)
+    .then((res) => res.data)
+    .catch(console.error);
+  return data ? data : [];
+};
+export const addItemToPlaylist = async (playlistId, data) => {
+  await axios
+    .post(`/playlists/${playlistId}/tracks`, data)
+    .then((res) => res.data)
+    .catch(console.error);
+  return data ? data : [];
+};
+export const getUserPlaylists = async () => {
+  const data = await axios
+    .get(`/me/playlists`)
+    .then((res) => res.data.items)
+    .catch(console.error);
+  return data ? data : [];
 };

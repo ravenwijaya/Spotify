@@ -8,6 +8,8 @@ body {
 }
 .slider {
   overflow-x: auto;
+  overflow-y: hidden;
+  height: 100;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -16,9 +18,9 @@ body {
 }
 .card {
   position: relative;
-
   background-color: black;
   width: 35%;
+  height: 40%;
   border-radius: 10px;
   margin: 20px auto;
   border: 2px solid mediumspringgreen;

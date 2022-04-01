@@ -2,7 +2,12 @@ import { Box, Image, Text, Button, ScaleFade } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 const Card = ({
-  data: { artists, images, name, album_type, uri },
+  data: {
+    artists,
+    album: { images, type },
+    name,
+    uri,
+  },
   onSelect,
   deselect,
   onDeselect,
@@ -26,7 +31,7 @@ const Card = ({
           <Box className="hover_card">
             <Text className="card_info_name">{name}</Text>
             <Text className="card_info_artist">{artists[0].name}</Text>
-            <Text className="card_info_album">{album_type}</Text>
+            <Text className="card_info_album">{type}</Text>
           </Box>
         </ScaleFade>
       </Box>

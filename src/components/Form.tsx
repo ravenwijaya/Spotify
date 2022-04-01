@@ -1,17 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, Box, Input, Textarea, Text } from '@chakra-ui/react';
 
-const Form = () => {
+const Form = ({ handleSubmit }) => {
+  const [inputs, setInputs] = useState({});
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
+
   return (
-    <form>
-      <h1 id="title">Create Playlist</h1>
-      <label htmlFor="title">Title </label>
-      <input type="text" id="title" name="title" />
-      <label htmlFor="artist">Artists </label>
-      <input type="text" id="artist" name="artist" />
-      <label htmlFor="album">Albums </label>
-      <input type="text" id="album" name="album" />
-      <input type="submit" className="button" id="submit_form" value="Submit" />
-    </form>
+    <Box w="40%" mx="auto">
+      <form onSubmit={(e) => handleSubmit(e, inputs)}>
+        <Text
+          color="white"
+          fontSize={20}
+          fontWeight="bold"
+          textAlign="center"
+          mb={2}
+        >
+          {' '}
+          Create Playlist
+        </Text>
+        <Input
+          type="text"
+          placeholder="Name"
+          name="name"
+          minLength={10}
+          backgroundColor="white"
+          onChange={handleChange}
+        />
+        <Textarea
+          name="description"
+          placeholder="Description"
+          backgroundColor="white"
+          onChange={handleChange}
+        />
+        <Button
+          w="100%"
+          textAlign="center"
+          type="submit"
+          className="button"
+          backgroundColor="black"
+        >
+          Submit
+        </Button>
+      </form>
+    </Box>
   );
 };
 export default Form;
