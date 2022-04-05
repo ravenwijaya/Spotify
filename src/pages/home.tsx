@@ -12,8 +12,10 @@ import PlaylistCard from '../components/PlaylistCard';
 import Form from '../components/Form';
 import './home.css';
 import { Flex, Input, Text } from '@chakra-ui/react';
+import { connect } from 'react-redux';
 
-const HomePage = () => {
+const HomePage = ({ contacts }) => {
+  console.log(contacts);
   const [data, setData] = useState<any>();
   const [user, setUser] = useState();
   const [selectedData, setSelectedData] = useState([]);
@@ -98,4 +100,6 @@ const HomePage = () => {
     </Flex>
   );
 };
-export default HomePage;
+const mapStateToProps = (state) => ({ contacts: state.auth });
+
+export default connect(mapStateToProps)(HomePage);

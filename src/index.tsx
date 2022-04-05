@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react';
-
 import reportWebVitals from './reportWebVitals';
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './store';
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
-      <App />
+      <ReduxProvider store={store}>
+        <App />
+      </ReduxProvider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')

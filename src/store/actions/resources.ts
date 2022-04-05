@@ -17,6 +17,7 @@ const generateRandomString = (length) => {
   }
   return text;
 };
+
 export const auth = () => {
   var state = generateRandomString(16);
   let url =

@@ -3,8 +3,10 @@ import { Button, Text, Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { auth } from '../store/actions/resources';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../store/actions/auth';
 
-const Login = () => {
+const Login = ({ login }) => {
   let navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -19,6 +21,7 @@ const Login = () => {
     }
     return hashParams;
   };
+
   const handleRedirect = (event) => {
     event.preventDefault();
     window.location = auth();
@@ -32,8 +35,7 @@ const Login = () => {
     // const token = localStorage.getItem('spotifyAuthToken');
 
     if (access_token) {
-      console.log(access_token);
-      // setIsAuthenticated(true);
+      login({ token: access_token });
       navigate('/home');
     }
   }, []);
@@ -56,4 +58,8 @@ const Login = () => {
     </>
   );
 };
-export default Login;
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (data) => dispatch(login(data)),
+});
+export default connect(null, mapDispatchToProps)(Login);
