@@ -8,7 +8,6 @@ import { login } from '../store/actions/auth';
 
 const Login = ({ login }) => {
   let navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const getHashParams = () => {
     const hashParams = {};
@@ -31,12 +30,13 @@ const Login = ({ login }) => {
     const params = getHashParams();
     const access_token = params.access_token;
     const state = params.state;
-    localStorage.setItem('spotifyAuthToken', access_token);
-    // const token = localStorage.getItem('spotifyAuthToken');
+    if (access_token) {
+      localStorage.setItem('spotifyAuthToken', access_token);
+    }
 
     if (access_token) {
       login({ token: access_token });
-      navigate('/home');
+      navigate('/create-playlist');
     }
   }, []);
 

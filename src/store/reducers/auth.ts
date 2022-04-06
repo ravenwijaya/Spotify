@@ -1,8 +1,17 @@
 /* eslint-disable import/no-anonymous-default-export */
-export default (state = {}, action) => {
+const tokenData = localStorage.getItem('spotifyAuthToken');
+let initialState: {} = {};
+
+initialState = {
+  isLogin: tokenData !== 'undefined' ? true : false,
+  token: tokenData !== 'undefined' ? tokenData : null,
+};
+
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
       return {
+        isLogin: true,
         token: action.payload,
       };
     default:
