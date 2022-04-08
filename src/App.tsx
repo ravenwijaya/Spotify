@@ -1,6 +1,5 @@
-// @ts-nocheck
 import './App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import HomePage from '../src/pages/home';
 import {
   BrowserRouter as Router,
@@ -12,29 +11,32 @@ import {
 import { connect } from 'react-redux';
 import Login from './pages/login';
 
-const PrivateRoute = (isLogin) => {
+const PrivateRoute = ({ isLogin }) => {
   return isLogin ? <Outlet /> : <Navigate to="/" />;
 };
 
-const PublicRoute = (isLogin) => {
+const PublicRoute = ({ isLogin }) => {
   return !isLogin ? <Outlet /> : <Navigate to="/create-playlist" />;
 };
 
-function App({ auth: { isLogin, token } }) {
+function App({ isLogin }: { isLogin: boolean }) {
   return (
     <Router>
       <Routes>
-        <Route exact path="/create-playlist" element={<PrivateRoute isLogin />}>
-          <Route exact path="/create-playlist" element={<HomePage />} />
+        <Route
+          path="/create-playlist"
+          element={<PrivateRoute isLogin={isLogin} />}
+        >
+          <Route path="/create-playlist" element={<HomePage />} />
         </Route>
-        <Route exact path="/" element={<PublicRoute isLogin />}>
-          <Route exact path="/" element={<Login />} />
+        <Route path="/" element={<PublicRoute isLogin={isLogin} />}>
+          <Route path="/" element={<Login />} />
         </Route>
       </Routes>
     </Router>
   );
 }
 
-const mapStateToProps = (state) => ({ auth: state.auth });
+const mapStateToProps = (state) => ({ isLogin: state.auth.isLogin });
 
 export default connect(mapStateToProps)(App);

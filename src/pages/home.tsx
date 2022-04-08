@@ -15,8 +15,8 @@ import { Flex, Input, Text } from '@chakra-ui/react';
 
 const HomePage = () => {
   const [data, setData] = useState<any>();
-  const [user, setUser] = useState();
-  const [selectedData, setSelectedData] = useState([]);
+  const [user, setUser] = useState<any>();
+  const [selectedData, setSelectedData] = useState<any>([]);
   const [userPlaylists, setUserPlaylists] = useState();
 
   const getData = async (name) => {

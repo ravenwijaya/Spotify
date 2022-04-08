@@ -1,13 +1,13 @@
 // @ts-nocheck
 import { Button, Text, Flex } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { auth } from '../store/actions/resources';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../store/actions/auth';
 
 const Login = ({ login }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const getHashParams = () => {
     const hashParams = {};

@@ -1,6 +1,21 @@
+// @ts-nocheck
 import { Box, Image, Text, Button, ScaleFade } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
+interface PageValue {
+  data: {
+    artists: [{ name: string }];
+    album: {
+      images: [{ url: string }];
+      type: string;
+    };
+    name: string;
+    uri: string;
+  };
+  onSelect: (uri: string) => void;
+  deselect?: boolean;
+  onDeselect?: (uri: string) => void;
+}
 const Card = ({
   data: {
     artists,
@@ -11,7 +26,7 @@ const Card = ({
   onSelect,
   deselect,
   onDeselect,
-}) => {
+}: PageValue) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Box className="card">
