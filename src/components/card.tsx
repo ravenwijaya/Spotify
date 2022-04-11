@@ -15,6 +15,7 @@ interface PageValue {
   onSelect: (uri: string) => void;
   deselect?: boolean;
   onDeselect?: (uri: string) => void;
+  selectedCard: boolean;
 }
 const Card = ({
   data: {
