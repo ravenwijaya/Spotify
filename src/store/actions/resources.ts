@@ -19,14 +19,14 @@ const generateRandomString = (length) => {
 };
 
 export const auth = () => {
-  var state = generateRandomString(16);
-  let url =
+  const state = generateRandomString(16);
+  const url =
     'https://accounts.spotify.com/authorize' +
     '?response_type=token' +
     `&client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}` +
     '&scope=' +
     encodeURIComponent(
-      'user-read-private%20user-read-email%20playlist-modify'
+      'user-read-private%20user-read-email%20playlist-read-collaborative%20playlist-read-private%20playlist-modify-public%20playlist-modify-private'
     ) +
     '&redirect_uri=' +
     encodeURIComponent('http://localhost:3000/') +
@@ -43,11 +43,11 @@ export const getCurrentUser = async () => {
   return data ? data : [];
 };
 export const addPlaylist = async (userId, data) => {
-  await axios
+  const res = await axios
     .post(`/users/${userId}/playlists`, data)
     .then((res) => res.data)
     .catch(console.error);
-  return data ? data : [];
+  return res ? res : [];
 };
 export const addItemToPlaylist = async (playlistId, data) => {
   await axios

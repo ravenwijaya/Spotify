@@ -28,10 +28,12 @@ const Form = ({ handleSubmit }) => {
           placeholder="Name"
           name="name"
           minLength={10}
+          mb={2}
           backgroundColor="white"
           onChange={handleChange}
         />
         <Textarea
+          mb={2}
           name="description"
           placeholder="Description"
           backgroundColor="white"
@@ -41,8 +43,12 @@ const Form = ({ handleSubmit }) => {
           w="100%"
           textAlign="center"
           type="submit"
-          className="button"
           backgroundColor="black"
+          borderColor="mediumspringgreen"
+          borderWidth="2px"
+          borderRadius="5px"
+          height="50px"
+          color="white"
         >
           Submit
         </Button>
