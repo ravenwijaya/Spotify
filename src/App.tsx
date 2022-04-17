@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import HomePage from '../src/pages/home';
+import HomePage from './pages/Home';
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,7 +9,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Login from './pages/login';
+import Login from './pages/Login';
 
 const PrivateRoute = ({ isLogin }) => {
   return isLogin ? <Outlet /> : <Navigate to="/" />;

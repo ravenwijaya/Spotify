@@ -14,7 +14,7 @@ const PlaylistCard = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <Flex direction="column">
+    <Flex direction="column" mr={5}>
       <Box position="relative" width="300px">
         <Image
           src={
@@ -76,7 +76,6 @@ const PlaylistCard = ({
         borderRadius="5px"
         height="50px"
         color="white"
-        m={2}
         onClick={() => addItem(id)}
       >
         Add Selected

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef   */
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -9,7 +11,7 @@ module.exports = {
   mode: 'development',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
   },
   devServer: {
     port: 3000,
@@ -38,10 +40,18 @@ module.exports = {
         use: 'css-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', 'jsx', '.js'],
+    extensions: ['.ts', '.tsx', '.jsx', '.js'],
   },
   plugins: [
     new webpack.DefinePlugin({

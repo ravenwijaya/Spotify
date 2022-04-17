@@ -6,14 +6,14 @@ import {
   addPlaylist,
   getUserPlaylists,
   addItemToPlaylist,
-} from '../store/actions/resources';
-import Card from '../components/Card';
-import PlaylistCard from '../components/PlaylistCard';
-import Form from '../components/Form';
+} from '../../store/actions/resources';
+import Card from '../../components/Card';
+import PlaylistCard from '../../components/PlaylistCard';
+import Form from '../../components/Form';
 import { Flex, Input, Text } from '@chakra-ui/react';
 import './home.css';
 
-const HomePage = () => {
+const Index = () => {
   const [data, setData] = useState<any>();
   const [user, setUser] = useState<any>();
   const [selectedData, setSelectedData] = useState<any>([]);
@@ -27,7 +27,6 @@ const HomePage = () => {
     setUserPlaylists(userPlaylists);
     setData(data);
   };
-  console.log(data);
 
   const select = (uri: string) => {
     const isSelected = selectedData.find((item) => item.uri === uri);
@@ -66,6 +65,7 @@ const HomePage = () => {
         Hi, Welcome {user?.display_name}
       </Text>
       <Input
+        aria-label="searchBox"
         placeholder="search"
         color="black"
         mt={2}
@@ -80,7 +80,12 @@ const HomePage = () => {
         my={5}
       >
         {data?.map((item) => (
-          <Card key={item.uri} data={item} onSelect={select} />
+          <Card
+            testId="searchData"
+            key={item.uri}
+            data={item}
+            onSelect={select}
+          />
         ))}
       </Flex>
 
@@ -125,4 +130,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Index;

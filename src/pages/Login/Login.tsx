@@ -8,43 +8,22 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
-import { auth } from '../store/actions/resources';
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { login } from '../store/actions/auth';
 //@ts-ignore
-import logo from '../assets/img/logo.png';
+import logo from '../../assets/img/logo.png';
 
-const Login = ({ login }) => {
+const Login = ({ login, getHashParams, handleRedirect }) => {
   const { isOpen: isOpenFirst, onToggle: onToggleFirst } = useDisclosure();
   const { isOpen: isOpenSecond, onToggle: onToggleSecond } = useDisclosure();
   const { isOpen: isOpenThird, onToggle: onToggleThird } = useDisclosure();
   const navigate = useNavigate();
 
-  const getHashParams = () => {
-    const hashParams = {};
-    const r = /([^&;=]+)=?([^&;]*)/g;
-    const q = window.location.hash.substring(1);
-    let e = r.exec(q);
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams as { access_token: string };
-  };
-
-  const handleRedirect = (event) => {
-    event.preventDefault();
-    //@ts-ignore
-    window.location = auth();
-  };
-
   useEffect(() => {
-    setTimeout(onToggleFirst, 1000);
-    setTimeout(onToggleSecond, 1300);
-    setTimeout(onToggleThird, 1600);
+    const timer1 = setTimeout(onToggleFirst, 1000);
+    const timer2 = setTimeout(onToggleSecond, 1300);
+    const timer3 = setTimeout(onToggleThird, 1600);
     const params = getHashParams();
-    const access_token = params.access_token;
+    const access_token = params?.access_token;
     if (access_token) {
       localStorage.setItem('spotifyAuthToken', access_token);
     }
@@ -53,6 +32,11 @@ const Login = ({ login }) => {
       login({ token: access_token });
       navigate('/create-playlist');
     }
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
   }, []);
 
   return (
@@ -105,7 +89,4 @@ const Login = ({ login }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch(login(data)),
-});
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

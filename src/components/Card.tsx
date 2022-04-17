@@ -12,10 +12,13 @@ interface PageValue {
     uri: string;
     duration_ms?: number;
   };
+  testId?: string;
+
   onSelect: (uri: string) => void;
   deselect?: boolean;
   onDeselect?: (uri: string) => void;
 }
+
 const Card = ({
   data: {
     artists,
@@ -24,6 +27,7 @@ const Card = ({
     uri,
     duration_ms,
   },
+  testId,
   onSelect,
   deselect,
   onDeselect,
@@ -32,11 +36,12 @@ const Card = ({
   const minutes = duration_ms && Math.round(duration_ms / 1000 / 60);
   const seconds = duration_ms && Math.round(duration_ms / 1000) % 60;
   return (
-    <Flex direction="column">
+    <Flex direction="column" mr={5}>
       <Box position="relative" width="300px">
         <Image
+          data-testid={testId}
           src={images[0].url}
-          alt="Avatar"
+          alt="Avatar  "
           onPointerEnter={() => {
             setIsOpen(true);
           }}

@@ -11,7 +11,7 @@ const Form = ({ handleSubmit }) => {
   };
 
   return (
-    <Box w="40%" mx="auto">
+    <Box w="40%" mx="auto" mt={5}>
       <form onSubmit={(e) => handleSubmit(e, inputs)}>
         <Text
           color="white"
