@@ -29,7 +29,7 @@ export const auth = () => {
       'user-read-private%20user-read-email%20playlist-read-collaborative%20playlist-read-private%20playlist-modify-public%20playlist-modify-private'
     ) +
     '&redirect_uri=' +
-    encodeURIComponent('http://localhost:3000/') +
+    encodeURIComponent('https://spotifyraven.vercel.app/') +
     '&state=' +
     encodeURIComponent(state);
   return url;
